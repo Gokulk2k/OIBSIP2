@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        #converter {
+            width: 400px; /* Increased width */
+            background: #bd6060;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #050303;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            width: 100%;
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        #result {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="converter">
+        <h1>Temperature Converter</h1>
+        <label for="temp">Enter Temperature:</label>
+        <input type="number" id="temp" placeholder="Enter temperature..." step="0.01">
+        <label for="from">From Unit:</label>
+        <select id="from">
+            <option value="celsius">Celsius</option>
+            <option value="fahrenheit">Fahrenheit</option>
+            <option value="kelvin">Kelvin</option>
+        </select>
+        <label for="to">To Unit:</label>
+        <select id="to">
+            <option value="celsius">Celsius</option>
+            <option value="fahrenheit">Fahrenheit</option>
+            <option value="kelvin">Kelvin</option>
+        </select>
+        <button id="convert">Convert</button>
+        <label for="result">Result:</label>
+        <input type="text" id="result" readonly>
+    </div>
+
+    <script>
+        document.getElementById('convert').addEventListener('click', function() {
+            // Get input values
+            const temperature = parseFloat(document.getElementById('temp').value);
+            const fromUnit = document.getElementById('from').value;
+            const toUnit = document.getElementById('to').value;
+
+            // Convert temperature
+            let result;
+
+            if (fromUnit === 'celsius' && toUnit === 'fahrenheit') {
+                result = (temperature * 9/5) + 32;
+            } else if (fromUnit === 'celsius' && toUnit === 'kelvin') {
+                result = temperature + 273.15;
+            } else if (fromUnit === 'fahrenheit' && toUnit === 'celsius') {
+                result = (temperature - 32) * 5/9;
+            } else if (fromUnit === 'fahrenheit' && toUnit === 'kelvin') {
+                result = (temperature - 32) * 5/9 + 273.15;
+            } else if (fromUnit === 'kelvin' && toUnit === 'celsius') {
+                result = temperature - 273.15;
+            } else if (fromUnit === 'kelvin' && toUnit === 'fahrenheit') {
+                result = (temperature - 273.15) * 9/5 + 32;
+            } else {
+                result = temperature;
+            }
+
+            // Display the result
+            document.getElementById('result').value = result.toFixed(2);
+        });
+    </script>
+</body>
+</html>
